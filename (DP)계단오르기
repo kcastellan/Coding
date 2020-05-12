@@ -1,0 +1,29 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int N;
+int score[301] = { 0, };
+int sum[301] = { 0, };
+int f(void)
+{
+	 sum[1] = score[1];
+	 sum[2] = score[2]+score[1];
+	 sum[3] = max(score[1] + score[3], score[2] + score[3]);
+	
+	for (int i = 4; i <= N; i++)
+	{
+		sum[i] = max(sum[i-2] + score[i], sum[i-3] + score[i-1]+score[i]);
+	}
+	return sum[N];
+}
+int main(void)
+{
+	cin >> N;
+	for (int i = 1; i <= N; i++)
+	{
+		cin >> score[i];
+	}
+		cout << f() << endl;
+        return 0;
+}
